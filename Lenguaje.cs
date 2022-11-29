@@ -19,98 +19,76 @@ namespace Generador
 {
     public class Lenguaje : Sintaxis, IDisposable
     {
-       
+        int tp, tl;
+
         List<string> listaSNT;
         public Lenguaje(string nombre) : base(nombre)
         {
+            tp = tl = 0;
             listaSNT = new List<string>();
-            
+
         }
         public Lenguaje()
         {
-            
+            tp = tl = 0;
             listaSNT = new List<string>();
         }
         public void Dispose()
         {
-           
+
             cerrar();
         }
         private bool esSNT(string contenido)
         {
             return true;
-           
+
         }
         private void agregarSNT(string contenido)
         {
-            
+
             listaSNT.Add(contenido);
         }
         private void Programa(string produccionPrincipal)
         {
-            
-            
+
+
             agregarSNT("Programa");
             agregarSNT("Librerias");
             agregarSNT("Variables");
             agregarSNT("ListaIdentificadores");
-            
-            programa.WriteLine("using System;");
-            
-            programa.WriteLine("using System.IO;");
-            
-            programa.WriteLine("using System.Collections.Generic;");
-            
-            programa.WriteLine();
-            
-            programa.WriteLine("namespace Generico");
-            
-            programa.WriteLine("{");
-            
-            programa.WriteLine("public class Program");
-            
-            programa.WriteLine("{");
-            
-            programa.WriteLine("static void Main(string[] args)");
-            
-            programa.WriteLine("{");
-            
-            programa.WriteLine("try");
-            
-            programa.WriteLine("{");
-            
-            programa.WriteLine("using (Lenguaje a = new Lenguaje())");
-            
-            programa.WriteLine("{");
-            
-            programa.WriteLine("a." + produccionPrincipal + "();");
-            
-            programa.WriteLine("}");
-            
-            programa.WriteLine("}");
-            
-            programa.WriteLine("catch (Exception e)");
-            
-            programa.WriteLine("{");
-            
-            programa.WriteLine("Console.WriteLine(e.Message);");
-            
-            programa.WriteLine("}");
-            
-            programa.WriteLine("}");
-            
-            programa.WriteLine("}");
-            
-            programa.WriteLine("}");
+            identarPrograma("using System;");
+            identarPrograma("using System.IO;");
+            identarPrograma("using System.Collections.Generic;");
+            identarPrograma("");
+            identarPrograma("namespace Generico");
+            identarPrograma("{");
+            identarPrograma("public class Program");
+            identarPrograma("{");
+            identarPrograma("static void Main(string[] args)");
+            identarPrograma("{");
+            identarPrograma("try");
+            identarPrograma("{");
+            identarPrograma("using (Lenguaje a = new Lenguaje())");
+            identarPrograma("{");
+            identarPrograma("a." + produccionPrincipal + "();");
+            identarPrograma("}");
+            identarPrograma("}");
+            identarPrograma("catch (Exception e)");
+            identarPrograma("{");
+            identarPrograma("Console.WriteLine(e.Message);");
+            identarPrograma("}");
+            identarPrograma("}");
+            identarPrograma("}");
+            identarPrograma("}");
         }
         public void gramatica()
         {
             cabecera();
-            Programa("programa");
+            Programa("Programa");
             cabeceraLenguaje();
             listaProducciones();
-            lenguaje.WriteLine("\t}");
-            lenguaje.WriteLine("}");
+            identarlenguaje("}");
+            identarlenguaje("}");
         }
         private void cabecera()
         {
@@ -121,29 +99,29 @@ namespace Generador
         }
         private void cabeceraLenguaje()
         {
-            lenguaje.WriteLine("using System;");
-            lenguaje.WriteLine("using System.Collections.Generic;");
-            lenguaje.WriteLine("namespace Generico");
-            lenguaje.WriteLine("{");
-            lenguaje.WriteLine("\tpublic class Lenguaje : Sintaxis, IDisposable");
-            lenguaje.WriteLine("\t{");
-            lenguaje.WriteLine("\t\tstring nombreProyecto;");
-            lenguaje.WriteLine("\t\tpublic Lenguaje(string nombre) : base(nombre)");
-            lenguaje.WriteLine("\t\t{");
-            lenguaje.WriteLine("\t\t}");
-            lenguaje.WriteLine("\t\tpublic Lenguaje()");
-            lenguaje.WriteLine("\t\t{");
-            lenguaje.WriteLine("\t\t}");
+            identarlenguaje("using System;");
+            identarlenguaje("using System.Collections.Generic;");
+            identarlenguaje("namespace Generico");
+            identarlenguaje("{");
+            identarlenguaje("public class Lenguaje : Sintaxis, IDisposable");
+            identarlenguaje("{");
+            identarlenguaje("string nombreProyecto;");
+            identarlenguaje("public Lenguaje(string nombre) : base(nombre)");
+            identarlenguaje("{");
+            identarlenguaje("}");
+            identarlenguaje("public Lenguaje()");
+            identarlenguaje("{");
+            identarlenguaje("}");
         }
         private void listaProducciones()
         {
-            lenguaje.WriteLine("\t\tprivate void " + getContenido() + "()");
-            lenguaje.WriteLine("\t\t{");
+            identarlenguaje("private void " + getContenido() + "()");
+            identarlenguaje("{");
             match(Tipos.ST);
             match(Tipos.Produce);
             simbolos();
             match(Tipos.finProduccion);
-            lenguaje.WriteLine("\t\t}");
+            identarlenguaje("}");
             if (!FinArchivo())
             {
                 listaProducciones();
@@ -154,26 +132,26 @@ namespace Generador
             if (getContenido() == "(")
             {
                 match("(");
-                lenguaje.WriteLine("\t\tif (true)");
-                lenguaje.WriteLine("\t\t{");
+                identarlenguaje("if(true)");
+                identarlenguaje("{");
                 simbolos();
                 match(")");
-                lenguaje.WriteLine("\t\t}");
+                identarlenguaje("}");
             }
             else if (esTipo(getContenido()))
             {
-                lenguaje.WriteLine("\t\t\tmatch(Tipos." + getContenido() + ");");
+                identarlenguaje("match(Tipos." + getContenido() + ");");
                 match(Tipos.ST);
             }
             else if (esSNT(getContenido()))
             {
-                lenguaje.WriteLine("\t\t\t" + getContenido() + "();");
+                identarlenguaje("" + getContenido() + "();");
                 //match(Tipos.SNT);
                 match(Tipos.ST);
             }
             else if (getClasificacion() == Tipos.ST)
             {
-                lenguaje.WriteLine("\t\t\tmatch(\"" + getContenido() + "\");");
+                identarlenguaje("match(\"" + getContenido() + "\");");
                 match(Tipos.ST);
             }
             if (getClasificacion() != Tipos.finProduccion && getContenido() != ")")
@@ -200,11 +178,44 @@ namespace Generador
                 case "FinSentencia":
                 case "Cadena":
                 case "TipoDato":
-                case "ZonaCondicion":
+                case "Zona":
+                case "Condicion":
                 case "Ciclo":
                     return true;
             }
             return false;
+        }
+        private void identarPrograma(string cadena)
+        {
+            if (cadena == ("}"))
+            {
+                tp--;
+            }
+            for (int i = 0; i < tp; i++)
+            {
+                programa.Write("\t");
+            }
+            if (cadena == "{")
+            {
+                tp++;
+            }
+            programa.WriteLine(cadena);
+        }
+        private void identarlenguaje(string cadena)
+        {
+            if (cadena == ("}"))
+            {
+                tl--;
+            }
+            for (int i = 0; i < tl; i++)
+            {
+                lenguaje.Write("\t");
+            }
+            if (cadena == "{")
+            {
+                tl++;
+            }
+            lenguaje.WriteLine(cadena);
         }
     }
 }

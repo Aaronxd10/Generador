@@ -1,0 +1,32 @@
+Aaron David Briseño Rivera
+Archivo: C:\Users\aaron\Documents\Lenguajes y automatas II\Unidad 4\Generador\c2.gram
+Fecha: 28/11/2022 07:32:54 p. m.
+gramatica ST
+: ST
+cplusplus ST
+
+ finProduccion
+Programa ST
+-> Produce
+# ST
+Identificador ST
+, ST
+Numero ST
+Librerias ST
+
+ finProduccion
+Librerias ST
+-> Produce
+OperadorTermino ST
+
+ finProduccion
+Variables ST
+-> Produce
+( ST
+Identificador ST
+) ST
+
+ finProduccion
+ListaIdentificadores ST
+-> Produce
+Numero ST

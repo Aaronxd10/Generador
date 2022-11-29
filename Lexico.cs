@@ -32,9 +32,9 @@ namespace Generador
             log = new StreamWriter("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Unidad 4\\Generador\\c.Log");
             log.AutoFlush = true;
 
-            lenguaje = new StreamWriter("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Generico\\lenguaje.cs");
+            lenguaje = new StreamWriter("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Generico\\Lenguaje.cs");
             lenguaje.AutoFlush = true;
-            programa = new StreamWriter("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Generico\\program.cs");
+            programa = new StreamWriter("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Generico\\Program.cs");
             programa.AutoFlush = true;
 
             log.WriteLine("Aaron David Briseño Rivera");
@@ -63,9 +63,9 @@ namespace Generador
             log = new StreamWriter(pathLog);
             log.AutoFlush = true;
 
-            lenguaje = new StreamWriter("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Generico\\lenguaje.cs");
+            lenguaje = new StreamWriter("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Generico\\Lenguaje.cs");
             lenguaje.AutoFlush = true;
-            programa = new StreamWriter("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Generico\\program.cs");
+            programa = new StreamWriter("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Generico\\Program.cs");
             programa.AutoFlush = true;
 
             //log.WriteLine("Segundo constructor");
