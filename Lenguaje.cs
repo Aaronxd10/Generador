@@ -19,17 +19,20 @@ namespace Generador
 {
     public class Lenguaje : Sintaxis, IDisposable
     {
+        string primerap;
         int tp, tl;
 
         List<string> listaSNT;
         public Lenguaje(string nombre) : base(nombre)
         {
+            primerap = "";
             tp = tl = 0;
             listaSNT = new List<string>();
 
         }
         public Lenguaje()
         {
+            primerap = "";
             tp = tl = 0;
             listaSNT = new List<string>();
         }
@@ -86,7 +89,7 @@ namespace Generador
             cabecera();
             Programa("Programa");
             cabeceraLenguaje();
-            listaProducciones();
+            listaProducciones(true);
             identarlenguaje("}");
             identarlenguaje("}");
         }
@@ -113,9 +116,19 @@ namespace Generador
             identarlenguaje("{");
             identarlenguaje("}");
         }
-        private void listaProducciones()
+        private void listaProducciones(bool p)
         {
-            identarlenguaje("private void " + getContenido() + "()");
+            if (p)
+            {
+                identarlenguaje("public void " + getContenido() + "()");
+                primerap = "public void " + getContenido() + "(){}";
+                p = false;
+
+            }
+            else
+            {
+                identarlenguaje("private void " + getContenido() + "()");
+            }
             identarlenguaje("{");
             match(Tipos.ST);
             match(Tipos.Produce);
@@ -124,7 +137,7 @@ namespace Generador
             identarlenguaje("}");
             if (!FinArchivo())
             {
-                listaProducciones();
+                listaProducciones(p);
             }
         }
         private void simbolos()
