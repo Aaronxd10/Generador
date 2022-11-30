@@ -39,7 +39,7 @@ namespace Generador
 
             log.WriteLine("Aaron David Briseño Rivera");
             //log.WriteLine("Primer constructor"); 
-            log.WriteLine("Archivo: prueba.cpp");
+            log.WriteLine("Archivo: c.gram");
             log.WriteLine(DateTime.Now);
             //Requerimiento 1:
             //Investigar como checar si un archivo existe o no existe 
@@ -49,11 +49,12 @@ namespace Generador
             }
             else
             {
-                throw new Error("Error: El archivo c.gram.txt no existe", log);
+                throw new Error("Error: El archivo c.gram no existe", log);
             }
         }
         public Lexico(string nombre)
         {
+            string extension;
             linea = 1;
             posicion = 0;
             //log = new streamWriter(nombre.log)
@@ -72,15 +73,21 @@ namespace Generador
             log.WriteLine("Aaron David Briseño Rivera");
             log.WriteLine("Archivo: " + nombre);
             log.WriteLine("Fecha: " + DateTime.Now);
-
-
-            if (File.Exists(nombre))
+            extension = Path.GetExtension(nombre);
+            if (extension == ".gram")
             {
-                archivo = new StreamReader(nombre);
+                if (File.Exists(nombre))
+                {
+                    archivo = new StreamReader(nombre);
+                }
+                else
+                {
+                    throw new Error("Error: El archivo " + Path.GetFileName(nombre) + " no existe ", log);
+                }
             }
             else
             {
-                throw new Error("Error: El archivo " + Path.GetFileName(nombre) + " no existe ", log);
+                throw new Error("Error: No es .gram ", log);
             }
         }
         public void cerrar()
