@@ -87,7 +87,8 @@ namespace Generador
         public void gramatica()
         {
             cabecera();
-            Programa("Programa");
+            primerap = getContenido();
+            Programa(primerap);
             cabeceraLenguaje();
             listaProducciones(true);
             identarlenguaje("}");
@@ -121,7 +122,6 @@ namespace Generador
             if (p)
             {
                 identarlenguaje("public void " + getContenido() + "()");
-                primerap = "public void " + getContenido() + "(){}";
                 p = false;
 
             }
