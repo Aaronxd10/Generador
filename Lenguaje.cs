@@ -21,14 +21,12 @@ namespace Generador
     {
         string primerap;
         int tp, tl;
-
         List<string> listaSNT;
         public Lenguaje(string nombre) : base(nombre)
         {
             primerap = "";
             tp = tl = 0;
             listaSNT = new List<string>();
-
         }
         public Lenguaje()
         {
@@ -43,22 +41,31 @@ namespace Generador
         }
         private bool esSNT(string contenido)
         {
-            return true;
+            return listaSNT.Contains(contenido);
+            //return true;
 
         }
         private void agregarSNT(string contenido)
         {
-
-            listaSNT.Add(contenido);
+            string[] lineaactual = System.IO.File.ReadAllLines("C:\\Users\\aaron\\Documents\\Lenguajes y automatas II\\Unidad 4\\Generador\\c2.gram");
+            foreach (string linea in lineaactual)
+            {
+                string sinespacio = linea.Replace(" ", "");
+                int valor = sinespacio.IndexOf("-");
+                if (valor > 0)
+                {
+                    string snt = sinespacio.Substring(0, valor);
+                    if (!listaSNT.Contains(snt))
+                        Console.WriteLine(snt);
+                        listaSNT.Add(snt);
+                }
+            }
         }
         private void Programa(string produccionPrincipal)
         {
 
 
-            agregarSNT("Programa");
-            agregarSNT("Librerias");
-            agregarSNT("Variables");
-            agregarSNT("ListaIdentificadores");
+            agregarSNT(getContenido());
             identarPrograma("using System;");
             identarPrograma("using System.IO;");
             identarPrograma("using System.Collections.Generic;");
