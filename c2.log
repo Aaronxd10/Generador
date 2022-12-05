@@ -1,6 +1,6 @@
 Aaron David Briseño Rivera
 Archivo: C:\Users\aaron\Documents\Lenguajes y automatas II\Unidad 4\Generador\c2.gram
-Fecha: 04/12/2022 09:34:53 p. m.
+Fecha: 04/12/2022 11:34:58 p. m.
 gramatica ST
 : ST
 cplusplus ST
@@ -8,25 +8,79 @@ cplusplus ST
  finProduccion
 Programa ST
 -> Produce
-# ST
-Identificador ST
-, ST
-Numero ST
 Librerias ST
+Variables ST
+Main ST
+
+ finProduccion
+Main ST
+-> Produce
+TipoDato ST
+main ST
+( ST
+) ST
+BloqueInstrucciones ST
 
  finProduccion
 Librerias ST
 -> Produce
-OperadorTermino ST
+# ST
+include ST
+< ST
+Identificador ST
+. ST
+h ST
+> ST
 
  finProduccion
 Variables ST
 -> Produce
-( ST
+\( pIzq
 Identificador ST
+\) pDer
+
+ finProduccion
+Printf ST
+-> Produce
+printf ST
+( ST
+\( pIzq
+Cadena ST
+\) pDer
 ) ST
 
  finProduccion
-ListaIdentificadores ST
+Scanf ST
 -> Produce
-Numero ST
+scanf ST
+( ST
+\( pIzq
+Cadena ST
+\) pDer
+) ST
+
+ finProduccion
+BloqueInstrucciones ST
+-> Produce
+{ ST
+ListaInstrucciones ST
+} ST
+
+ finProduccion
+ListaInstrucciones ST
+-> Produce
+Instruccion ST
+\( pIzq
+; ST
+ListaInstrucciones ST
+\) pDer
+
+ finProduccion
+Instruccion ST
+-> Produce
+Printf ST
+( ST
+Scanf ST
+) ST
+
+ finProduccion

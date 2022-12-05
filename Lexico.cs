@@ -120,7 +120,7 @@ namespace Generador
                 case 5:
                     setClasificacion(Tipos.ST);
                     break;
-                     case 6:
+                case 6:
                     setClasificacion(Tipos.pIzq);
                     break;
                 case 7:
@@ -154,15 +154,15 @@ namespace Generador
             {
                 return 3;
             }
-            else if(c == '\\')
+            else if (c == '\\')
             {
                 return 6;
             }
-            else if(c == '(')
+            else if (c == '(')
             {
                 return 7;
             }
-            else if(c == ')')
+            else if (c == ')')
             {
                 return 8;
             }

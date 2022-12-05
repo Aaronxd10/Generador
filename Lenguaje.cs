@@ -56,7 +56,7 @@ namespace Generador
                 {
                     string snt = sinespacio.Substring(0, valor);
                     if (!listaSNT.Contains(snt))
-                        Console.WriteLine(snt);
+                        //Console.WriteLine(snt);
                         listaSNT.Add(snt);
                 }
             }
@@ -116,12 +116,15 @@ namespace Generador
             identarlenguaje("{");
             identarlenguaje("public class Lenguaje : Sintaxis, IDisposable");
             identarlenguaje("{");
-            identarlenguaje("string nombreProyecto;");
             identarlenguaje("public Lenguaje(string nombre) : base(nombre)");
             identarlenguaje("{");
             identarlenguaje("}");
             identarlenguaje("public Lenguaje()");
             identarlenguaje("{");
+            identarlenguaje("}");
+            identarlenguaje("public void Dispose()");
+            identarlenguaje("{");
+            identarlenguaje("cerrar();");
             identarlenguaje("}");
         }
         private void listaProducciones(bool p)
@@ -149,13 +152,20 @@ namespace Generador
         }
         private void simbolos()
         {
-            if (getContenido() == "(")
+            if(getContenido() == "\\(")
             {
-                match("(");
-                identarlenguaje("if(true)");
+                match("\\(");
+                if(esTipo(getContenido()))
+                {
+                    identarlenguaje("if (getClasificacion() == Tipos." + getContenido() + ")");
+                }
+                else
+                {
+                    identarlenguaje("if (getContenido() == \"" + getContenido() + "\")");
+                }
                 identarlenguaje("{");
                 simbolos();
-                match(")");
+                match("\\)");
                 identarlenguaje("}");
             }
             else if (esTipo(getContenido()))
@@ -174,7 +184,7 @@ namespace Generador
                 identarlenguaje("match(\"" + getContenido() + "\");");
                 match(Tipos.ST);
             }
-            if (getClasificacion() != Tipos.finProduccion && getContenido() != ")")
+            if (getClasificacion() != Tipos.finProduccion && getContenido() != "\\)")
             {
                 simbolos();
             }
