@@ -43,7 +43,6 @@ namespace Generador
         {
             return listaSNT.Contains(contenido);
             //return true;
-
         }
         private void agregarSNT(string contenido)
         {
@@ -56,15 +55,12 @@ namespace Generador
                 {
                     string snt = sinespacio.Substring(0, valor);
                     if (!listaSNT.Contains(snt))
-                        //Console.WriteLine(snt);
                         listaSNT.Add(snt);
                 }
             }
         }
         private void Programa(string produccionPrincipal)
         {
-
-
             agregarSNT(getContenido());
             identarPrograma("using System;");
             identarPrograma("using System.IO;");
@@ -133,7 +129,6 @@ namespace Generador
             {
                 identarlenguaje("public void " + getContenido() + "()");
                 p = false;
-
             }
             else
             {
@@ -152,10 +147,14 @@ namespace Generador
         }
         private void simbolos()
         {
-            if(getContenido() == "\\(")
+            if (getContenido() == "\\(")
             {
                 match("\\(");
-                if(esTipo(getContenido()))
+                if (esSNT(getContenido()))
+                {
+                    throw new Error("Error: se espera un ST ", log);
+                }
+                else if (esTipo(getContenido()))
                 {
                     identarlenguaje("if (getClasificacion() == Tipos." + getContenido() + ")");
                 }
